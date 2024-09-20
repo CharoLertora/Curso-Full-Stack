@@ -63,7 +63,8 @@ const part3 = {
 
 return(
   <div>
-    <Title title={part1.name} />
+    <Title title={course} />
+    <Body content={part1.name}/>
     <Body content={part2.name}/>
     <Body content={part3.name}/>
 
