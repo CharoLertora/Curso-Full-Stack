@@ -1,69 +1,47 @@
-const Title = (props) => {
+import { useState } from 'react'
 
-  console.log(props)
-  return (
-    <div>
-      <h1>
-        {props.title}
-      </h1>
-    </div>
-  )
-}
+const Display = ({ counter }) => <div>{counter}</div>
 
-const Body = (props) => {
-  console.log(props)
-  console.log(props.parts[0].name)
-  console.log(props.parts[1].name)
-  console.log(props.parts[2].name)
-  return (
-    <div>
-      <p>{props.parts[0].name}</p>
-      <p>{props.parts[1].name}</p>
-      <p>{props.parts[2].name}</p>
-    </div>
-  )
-}
-
-const Footer = (props) => {
-  console.log(props.parts[0].exercises)
-  console.log(props.parts[1].exercises)
-  console.log(props.parts[2].exercises)
-  return(
-    <div>
-      Summary of exercises is {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}
-    </div>
-  )
-}
+const Button = ({ onSmash, text }) => <button onClick={onSmash}>{text}</button>
 
 const App = () => {
+  const [ counter, setCounter ] = useState(0)
+  console.log('rendering with counter value', counter)
 
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
+  const increaseByOne = () => {
+    console.log('increasing, value before', counter)
+    setCounter(counter + 1)
   }
 
-return(
-  <div>
-    <Title title={course.name} />
+  const decreaseByOne = () => {
+    console.log('decreasing, value before', counter)
+    setCounter(counter - 1)
+  }
 
-    <Body parts={course.parts} />
+  const setToZero = () => {
+    console.log('resetting to zero, value before', counter)
+    setCounter(0)
+  } 
 
-    <Footer parts={course.parts} />
-    
-  </div>
-)
+  return (
+    <div>
+      <Display counter={counter}/>
+
+      <Button
+        onClick={increaseByOne}
+        text='plus'
+      />
+      <Button
+        onClick={setToZero}
+        text='zero'
+      />     
+      <Button
+        onClick={decreaseByOne}
+        text='minus'
+      />           
+    </div>
+  )
 }
+
+
 export default App
