@@ -1,7 +1,13 @@
 import { useState } from 'react'
 
-const Display = props => <div>{props.value} {props.count}</div>
-
+const StatisticLine = props => {
+  return(
+    <tr>
+      <td>{props.value}</td> 
+      <td>{props.count}</td>
+    </tr>
+  )
+}
 const Title = (props) => {
   console.log(props)  
   return (
@@ -46,15 +52,17 @@ const Statistics = (props) => {
     )
   }
   return (
-    <div>
-      <Display value="Good: " count={props.good}/>
-      <Display value="Neutral: " count={props.neutral}/>
-      <Display value="Bad: " count={props.bad}/>
-    
-      <Display value="All: " count={add(props.good, props.neutral, props.bad)} />
-      <Display value="Average: " count={average(props.good, props.neutral, props.bad)} />
-      <Display value="Positive: " count={promPositive(props.good, props.neutral, props.bad) + "%"}/>
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine value="Good: " count={props.good}/>
+        <StatisticLine value="Neutral: " count={props.neutral}/>
+        <StatisticLine value="Bad: " count={props.bad}/>
+      
+        <StatisticLine value="All: " count={add(props.good, props.neutral, props.bad)} />
+        <StatisticLine value="Average: " count={average(props.good, props.neutral, props.bad)} />
+        <StatisticLine value="Positive: " count={promPositive(props.good, props.neutral, props.bad) + "%"}/>
+      </tbody>
+    </table>
   )
 }
 
@@ -68,7 +76,6 @@ const App = () => {
   console.log("Value Neutral", neutral)
   console.log("Value Bad", bad)
   
-
   return (
     <div>
       <Title title="Give your opinion" />
