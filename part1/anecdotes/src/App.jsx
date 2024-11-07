@@ -11,7 +11,10 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+
+
 const App = () => {
+  
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -21,18 +24,30 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
-
-  var lengthAnecdotes = anecdotes.length
-
-  const [selected, setSelected] = useState(0)
+  ];
   
+  const [points, setPoints] = useState(Array(anecdotes.length).fill(0));
+  const [selected, setSelected] = useState(0);
+  
+  const voteAnecdote = () => {
+    const newPoints = [...points];
+    newPoints[selected] += 1;
+    setPoints(newPoints);
+  };
+  
+  const randomAnecdote = () => {
+    const randomNum = getRandomInt(anecdotes.length);
+    setSelected(randomNum);
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
+      <h3>{anecdotes[selected]}</h3>
       <div>
-        <Button handleClick={() => setSelected(getRandomInt(lengthAnecdotes))} text="next anecdote" />
+        <Button handleClick={randomAnecdote} text="next anecdote" />
+        <Button handleClick={voteAnecdote} text="vote" />
       </div>
+      <p>Has {points[selected]} votes</p>
     </div>
   )
 }
