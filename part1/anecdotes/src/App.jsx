@@ -6,12 +6,40 @@ const Button = (props) => (
   </button>
 )
 
+const Subtitle = props => <div><h2>{props.value}</h2></div>
+
 function getRandomInt(max) {
   console.log(max)
   return Math.floor(Math.random() * max);
 }
 
 
+const mostVotesAnecdote = (points) => {
+  console.log(points)
+  const maxVotes = Math.max(...points);
+  console.log(maxVotes)
+  if (maxVotes === 0) {
+    return -1;
+  }
+  return points.indexOf(maxVotes);
+};
+
+const Statistics = (props) => {
+  const maxIndex = mostVotesAnecdote(props.points)
+
+  if (maxIndex === -1) {
+    return(
+      <div>
+        <p>No votes yet</p>
+      </div>
+    )
+  }
+  return(
+    <div>
+      <p>{props.anecdotes[maxIndex]}</p>
+    </div>
+  )
+}
 
 const App = () => {
   
@@ -40,14 +68,20 @@ const App = () => {
     setSelected(randomNum);
   }
 
+
+
   return (
     <div>
       <h3>{anecdotes[selected]}</h3>
+      <p>Has {points[selected]} votes</p>
       <div>
         <Button handleClick={randomAnecdote} text="next anecdote" />
         <Button handleClick={voteAnecdote} text="vote" />
+
+        <Subtitle value="Anecdote with most votes" />
+
+        <Statistics anecdotes={anecdotes} points={points}/>
       </div>
-      <p>Has {points[selected]} votes</p>
     </div>
   )
 }
